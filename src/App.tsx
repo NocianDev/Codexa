@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, type JSX } from "react";
 
 // CAMBIA ESTA CONSTANTE por tu correo real
 const RECEIVER = "angeldevsweb@gmail.com";
