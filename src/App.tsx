@@ -1,4 +1,4 @@
-import React, { useState, type JSX } from "react";
+import React, { useState } from "react";
 
 // CAMBIA ESTA CONSTANTE por tu correo real
 const RECEIVER = "angeldevsweb@gmail.com";
@@ -142,7 +142,7 @@ ${message}`);
               onChange={(e) => setName(e.target.value)}
               placeholder="Tu nombre"
               required
-              className="px-4 py-3 rounded-lg bg-white/8 placeholder:opacity-80 outline-none"
+              className="px-4 py-3 rounded-lg bg-white/10 text-white placeholder:text-white/70 caret-white outline-none outline-none"
             />
 
             <input
@@ -152,7 +152,7 @@ ${message}`);
               onChange={(e) => setEmail(e.target.value)}
               placeholder="tu@correo.com"
               required
-              className="px-4 py-3 rounded-lg bg-white/8 placeholder:opacity-80 outline-none"
+              className="px-4 py-3 rounded-lg bg-white/10 text-white placeholder:text-white/70 caret-white outline-none outline-none"
             />
 
             <input
@@ -162,7 +162,7 @@ ${message}`);
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Mensaje breve"
               required
-              className="px-4 py-3 rounded-lg bg-white/8 placeholder:opacity-80 outline-none md:w-64"
+              className="px-4 py-3 rounded-lg bg-white/10 text-white placeholder:text-white/70 caret-white outline-none outline-none md:w-64"
             />
 
             <button type="submit" className="bg-yellow-300 text-indigo-900 px-5 py-3 rounded-lg font-semibold">Enviar mensaje</button>
