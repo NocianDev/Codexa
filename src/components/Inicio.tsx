@@ -8,7 +8,7 @@ export default function Inicio() {
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 lg:py-24 grid lg:grid-cols-2 gap-10 items-center">
         <div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-4"><span className="gradient-text">Codexa</span> — Diseño ilustrado que convierte</h1>
+          <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-4"><span className="gradient-text">Nova Ypsilon Tech</span> — Diseño ilustrado que convierte</h1>
           <p className="text-lg text-slate-600 mb-6">Diseños coloridos, historias visuales y experiencias con personalidad. Ilustraciones propias para cada proyecto.</p>
 
           <div className="flex items-center gap-3">
@@ -18,7 +18,7 @@ export default function Inicio() {
 
           <div className="mt-8 grid grid-cols-3 gap-3">
             <div className="p-3 bg-white rounded shadow-sm text-center">
-              <div className="text-2xl font-bold">+20</div>
+              <div className="text-2xl font-bold">+5</div>
               <div className="text-xs text-slate-500">Proyectos</div>
             </div>
             <div className="p-3 bg-white rounded shadow-sm text-center">

@@ -82,7 +82,7 @@ export default function App(): JSX.Element {
       </main>
 
       <footer className="bg-white border-t py-4">
-        <div className="max-w-6xl mx-auto px-4 text-sm text-slate-500">© {new Date().getFullYear()} Codexa — Diseño ilustrado</div>
+        <div className="max-w-6xl mx-auto px-4 text-sm text-slate-500">© 2023 Nova Ypsilon Tech — Diseño ilustrado</div>
       </footer>
     </div>
   );
