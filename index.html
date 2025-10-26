@@ -3,60 +3,23 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Mi sitio multi-pestaña (Vite)</title>
-    <!-- Tailwind CDN para prototipo rápido -->
+    <title>Codexa — Diseño ilustrado</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Estilos custom rápidos (animaciones, blobs, glass) -->
     <style>
-      /* Blobs decorativos */
-      .blob {
-        position: absolute;
-        filter: blur(40px);
-        opacity: 0.55;
-        transform: translateZ(0);
-      }
-
-      /* Floating animation */
-      @keyframes floaty {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-12px); }
-        100% { transform: translateY(0px); }
-      }
+      .blob { position: absolute; filter: blur(40px); opacity: 0.55; transform: translateZ(0); }
+      @keyframes floaty { 0%{transform:translateY(0)}50%{transform:translateY(-12px)}100%{transform:translateY(0)} }
       .floaty { animation: floaty 6s ease-in-out infinite; }
-
-      /* Gradient shimmering text */
-      .gradient-text {
-        background: linear-gradient(90deg, #7c3aed, #06b6d4, #f97316);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        background-size: 200% 200%;
-        animation: shimmer 4s linear infinite;
-      }
-      @keyframes shimmer {
-        0% { background-position: 0% 50%; }
-        100% { background-position: 100% 50%; }
-      }
-
-      /* Glass effect (backdrop-filter) */
-      .glass {
-        background: rgba(255,255,255,0.08);
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px);
-        border: 1px solid rgba(255,255,255,0.09);
-      }
-
-      /* Card hover tilt */
+      .gradient-text { background: linear-gradient(90deg,#7c3aed,#06b6d4,#f97316); -webkit-background-clip:text; background-clip:text; color:transparent; background-size:200% 200%; animation: shimmer 4s linear infinite; }
+      @keyframes shimmer { 0%{background-position:0% 50%}100%{background-position:100% 50%} }
+      .glass { background: rgba(255,255,255,0.06); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border:1px solid rgba(255,255,255,0.06); }
       .card-hover { transition: transform .35s ease, box-shadow .35s ease; }
-      .card-hover:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 18px 40px rgba(2,6,23,0.25); }
-
-      /* Accent underline for nav */
-      .nav-underline { height: 3px; border-radius: 99px; transition: width .25s ease, background .25s ease; }
+      .card-hover:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 18px 40px rgba(2,6,23,0.18); }
+      .nav-underline { height:3px; border-radius:99px; transition:width .25s ease, background .25s ease; }
     </style>
   </head>
   <body class="bg-gradient-to-b from-slate-50 to-slate-100 text-slate-900">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
-</ht
+</html>
