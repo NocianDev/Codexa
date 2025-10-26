@@ -1,5 +1,5 @@
 // src/App.tsx
-import React, { useEffect, useRef, useState, type JSX } from 'react';
+import { useEffect, useRef, useState, type JSX } from 'react';
 import Nav from './components/Nav';
 import Inicio from './components/Inicio';
 import Proyectos from './components/Proyectos';

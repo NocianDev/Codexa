@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 const services = [
   { id: 's1', title: 'Diseño Web', desc: 'UX/UI centrado en conversión y rendimiento.', icon: (

@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 const projects = [
   { id: 1, title: 'Quantum UI', tag: 'UI/UX', img: 'https://picsum.photos/800/600?random=21', desc: 'Interfaz moderna para app SaaS.' },
