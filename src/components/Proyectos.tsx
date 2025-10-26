@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { CartoonCard } from './graphics';
 
 export default function Proyectos() {
