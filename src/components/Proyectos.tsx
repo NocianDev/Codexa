@@ -7,9 +7,9 @@ export default function Proyectos() {
     // o por un import (import qImg from './assets/q.jpg' -> image: qImg)
     { id: 1, title: 'BrightSpark', tag: 'UI/UX', colorA:'#ffd86b', colorB:'#ffb199', desc: 'Interfaz ilustrada para SaaS.', image: '/images/Bright.png', link: 'https://bright-spark-three.vercel.app/' },
     { id: 2, title: 'QuantumGrid', tag: 'E-commerce', colorA:'#a29bfe', colorB:'#81ecec', desc: 'Tienda con estética divertida.', image: '/images/Quantum.png', link: 'https://quantum-grid-iota.vercel.app/' },
-    { id: 3, title: 'Brand Spark', tag: 'Branding', colorA:'#ff9ff3', colorB:'#feca57', desc: 'Identidad con mascots.' }, // sin imagen -> fallback
-    { id: 4, title: 'Analytics Pop', tag: 'Data', colorA:'#63e6be', colorB:'#60a5fa', desc: 'Dashboards con metáforas gráficas.', image: '/images/analytics-pop.jpg' },
-    { id: 5, title: 'Landing Boost', tag: 'Marketing', colorA:'#ff8fab', colorB:'#ffd166', desc: 'Landing orientada a conversión.' , image: '/images/landing-boost.jpg', link: 'https://tusitio.com/landing-boost'},
+    { id: 3, title: 'SolarTech', tag: 'Branding', colorA:'#ff9ff3', colorB:'#feca57', desc: 'Una propuesta de diseño diferente.',image: '/images/SolarTech.png', link: 'https://solartech-mu.vercel.app/'}, // sin imagen -> fallback
+    { id: 4, title: 'Climatec', tag: 'Data', colorA:'#63e6be', colorB:'#60a5fa', desc: 'Diseños unicos y personalizados.', image: '/images/Climatec.png',link: 'https://climatec-sigma.vercel.app/'},
+    { id: 5, title: 'Intelitech', tag: 'Marketing', colorA:'#ff8fab', colorB:'#ffd166', desc: 'Landing orientada a ventas online.' , image: '/images/Intelitech.png', link: 'https://intelitech.vercel.app/'},
     { id: 6, title: 'App Mobile', tag: 'Mobile', colorA:'#b8f2e6', colorB:'#c7d2fe', desc: 'App con microinteracciones.' },
   ];
 
