@@ -7,10 +7,10 @@ export default function Proyectos() {
     // o por un import (import qImg from './assets/q.jpg' -> image: qImg)
     { id: 1, title: 'BrightSpark', tag: 'UI/UX', colorA:'#ffd86b', colorB:'#ffb199', desc: 'Interfaz ilustrada para SaaS.', image: '/images/Bright.png', link: 'https://bright-spark-three.vercel.app/' },
     { id: 2, title: 'QuantumGrid', tag: 'E-commerce', colorA:'#a29bfe', colorB:'#81ecec', desc: 'Tienda con estética divertida.', image: '/images/Quantum.png', link: 'https://quantum-grid-iota.vercel.app/' },
-    { id: 3, title: 'SolarTech', tag: 'Branding', colorA:'#ff9ff3', colorB:'#feca57', desc: 'Una propuesta de diseño diferente.',image: '/images/SolarTech.png', link: 'https://solartech-mu.vercel.app/'}, // sin imagen -> fallback
-    { id: 4, title: 'Climatec', tag: 'Data', colorA:'#63e6be', colorB:'#60a5fa', desc: 'Diseños unicos y personalizados.', image: '/images/Climatec.png',link: 'https://climatec-sigma.vercel.app/'},
+    { id: 3, title: 'SolarTech', tag: 'Green energy', colorA:'#ff9ff3', colorB:'#feca57', desc: 'Una propuesta de diseño diferente.',image: '/images/SolarTech.png', link: 'https://solartech-mu.vercel.app/'}, // sin imagen -> fallback
+    { id: 4, title: 'Climatec', tag: 'Refrigeracion', colorA:'#63e6be', colorB:'#60a5fa', desc: 'Diseños unicos y personalizados.', image: '/images/Climatec.png',link: 'https://climatec-sigma.vercel.app/'},
     { id: 5, title: 'Intelitech', tag: 'Marketing', colorA:'#ff8fab', colorB:'#ffd166', desc: 'Landing orientada a ventas online.' , image: '/images/Intelitech.png', link: 'https://intelitech.vercel.app/'},
-    { id: 6, title: 'App Mobile', tag: 'Mobile', colorA:'#b8f2e6', colorB:'#c7d2fe', desc: 'App con microinteracciones.' },
+    { id: 6, title: 'SonrisaNova', tag: 'Dentist', colorA:'#b8f2e6', colorB:'#c7d2fe', desc: 'Trabajos porfesionales y de calidad', image: '/images/SonrisaNova.png',link: 'https://sonrisanova.vercel.app/' },
   ];
 
   const hasImage = (img: any) => !!img;
