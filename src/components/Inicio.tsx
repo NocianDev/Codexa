@@ -1,5 +1,3 @@
-import { CartoonHero } from './graphics';
-
 export default function Inicio() {
   return (
     <section className="relative overflow-hidden">
@@ -34,10 +32,11 @@ export default function Inicio() {
 
         <div className="relative">
           <div className="rounded-2xl shadow-2xl overflow-hidden transform-gpu card-hover">
-            <CartoonHero />
+            {/* Reemplazado CartoonHero por una imagen estática */}
+            <img src="/images/Hero2.png" alt="Proyecto ilustrado" className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+
             <div className="p-5 bg-gradient-to-t from-black/40 to-transparent text-white">
-              <h3 className="text-xl font-semibold">Proyecto ilustrado destacado</h3>
-              <p className="text-sm text-white/80">Concepto y diseño cartoon para una app educativa.</p>
+              
             </div>
           </div>
 

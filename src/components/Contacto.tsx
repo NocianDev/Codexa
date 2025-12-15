@@ -149,15 +149,7 @@ export default function Contacto() {
 
         <div className="mt-6">
           {/* simple cartoon svg illustration kept from design */}
-          <svg viewBox="0 0 800 320" className="w-full rounded-lg object-cover h-40" xmlns="http://www.w3.org/2000/svg">
-            <rect width="100%" height="100%" rx="12" fill="#f8fafc" />
-            <g transform="translate(40,40)">
-              <circle cx="60" cy="70" r="36" fill="#ffd86b" />
-              <rect x="120" y="40" width="340" height="120" rx="12" fill="#c7d2fe" />
-              <rect x="140" y="60" width="120" height="12" rx="6" fill="#fff" />
-              <rect x="270" y="60" width="160" height="12" rx="6" fill="#fff" />
-            </g>
-          </svg>
+          
         </div>
       </div>
     </section>
