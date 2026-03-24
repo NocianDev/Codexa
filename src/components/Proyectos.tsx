@@ -8,7 +8,7 @@ export default function Proyectos() {
     { id: 1, title: 'BrightSpark', tag: 'UI/UX', colorA:'#ffd86b', colorB:'#ffb199', desc: 'Interfaz ilustrada para SaaS.', image: '/images/Bright.png', link: 'https://bright-spark-three.vercel.app/' },
     { id: 2, title: 'QuantumGrid', tag: 'E-commerce', colorA:'#a29bfe', colorB:'#81ecec', desc: 'Tienda con estética divertida.', image: '/images/Quantum.png', link: 'https://quantum-grid-iota.vercel.app/' },
     { id: 3, title: 'SonrisaNova', tag: 'Dentist', colorA:'#ff9ff3', colorB:'#feca57', desc: 'Trabajos porfesionales y de calidad.',image: '/images/SonrisaNova.png', link: 'https://sonrisanova.vercel.app/'}, // sin imagen -> fallback
-    { id: 4, title: 'Project 1', tag: 'Refrigeracion', colorA:'#63e6be', colorB:'#60a5fa', desc: 'Futuros Proyectos', image: '/images/',link: ''},
+    { id: 4, title: 'Retama', tag: 'Renta de maquinaria', colorA:'#63e6be', colorB:'#60a5fa', desc: 'Maquinas y mas a tu disposicion', image: '/images/Trabajo1.png',link: 'https://retama-eight.vercel.app/'},
     { id: 5, title: 'Project 2', tag: 'Marketing', colorA:'#ff8fab', colorB:'#ffd166', desc: 'Futuros Proyectos' , image: '/images/', link: ''},
     { id: 6, title: 'Project 3', tag: 'Tests', colorA:'#b8f2e6', colorB:'#c7d2fe', desc: 'Futuros Proyectos', image: '/images/',link: '' },
   ];
@@ -64,7 +64,7 @@ export default function Proyectos() {
                     </a>
                   ) : (
                     <img
-                      //src={resolveSrc(p.image)}
+                      src={resolveSrc(p.image)}
                       //alt={p.title}
                       loading="lazy"
                       className="w-full h-full object-cover"
