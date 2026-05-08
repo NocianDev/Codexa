@@ -1,49 +1,80 @@
-export default function Inicio() {
+type InicioProps = {
+  navigate: (path: string) => void;
+};
+
+const highlights = [
+  { value: '+5', label: 'proyectos publicados' },
+  { value: '24/7', label: 'presencia digital' },
+  { value: '100%', label: 'enfoque visual' },
+];
+
+const process = [
+  'Identidad visual y estructura del sitio',
+  'Diseño responsive con animaciones suaves',
+  'Publicación, optimización y soporte inicial',
+];
+
+export default function Inicio({ navigate }: InicioProps) {
   return (
-    <section className="relative overflow-hidden">
-      <div className="blob w-56 h-56 -left-24 -top-16 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full floaty"></div>
-      <div className="blob w-44 h-44 right-6 top-56 bg-gradient-to-r from-amber-300 to-pink-400 rounded-full opacity-60 floaty" style={{ animationDelay: '1.6s' }}></div>
+    <section className="relative">
+      <div className="section-shell grid min-h-[calc(100vh-80px)] items-center gap-14 py-20 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="fade-up">
+          <p className="eyebrow">Nova Ypsilon Tech · Desarrollo digital</p>
+          <h1 className="mt-6 max-w-4xl text-5xl font-black leading-[0.95] tracking-tight text-white sm:text-6xl lg:text-7xl">
+            Sitios web modernos con presencia fuerte, velocidad y estilo profesional.
+          </h1>
+          <p className="mt-7 max-w-2xl text-lg leading-8 text-white/68">
+            En NYT creamos páginas web, interfaces y soluciones digitales para negocios que necesitan verse serios, vender mejor y diferenciarse desde el primer impacto. Diseño oscuro, detalles premium y estructura lista para crecer.
+          </p>
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 lg:py-24 grid lg:grid-cols-2 gap-10 items-center">
-        <div>
-          <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight mb-4"><span className="gradient-text">Nova Ypsilon Tech</span> — Diseño ilustrado que convierte</h1>
-          <p className="text-lg text-slate-600 mb-6">Diseños coloridos, historias visuales y experiencias con personalidad. Ilustraciones propias para cada proyecto.</p>
-
-          <div className="flex items-center gap-3">
-            <a href="#proyectos" className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-gradient-to-r from-indigo-600 to-pink-500 text-white font-semibold shadow-lg transform hover:-translate-y-1 transition">Ver proyectos</a>
-            <a href="#contacto" className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 text-sm text-slate-700">Contacto</a>
+          <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+            <button onClick={() => navigate('/proyectos')} className="btn-primary">
+              Ver portafolio
+            </button>
+            <button onClick={() => navigate('/servicios')} className="btn-secondary">
+              Explorar servicios
+            </button>
           </div>
 
-          <div className="mt-8 grid grid-cols-3 gap-3">
-            <div className="p-3 bg-white rounded shadow-sm text-center">
-              <div className="text-2xl font-bold">+5</div>
-              <div className="text-xs text-slate-500">Proyectos</div>
-            </div>
-            <div className="p-3 bg-white rounded shadow-sm text-center">
-              <div className="text-2xl font-bold">5.0</div>
-              <div className="text-xs text-slate-500">Satisfacción</div>
-            </div>
-            <div className="p-3 bg-white rounded shadow-sm text-center">
-              <div className="text-2xl font-bold">Rápido</div>
-              <div className="text-xs text-slate-500">Entrega</div>
-            </div>
+          <div className="mt-12 grid max-w-2xl grid-cols-3 gap-3">
+            {highlights.map((item) => (
+              <div key={item.label} className="metric-card">
+                <div className="text-2xl font-black text-white">{item.value}</div>
+                <div className="mt-1 text-xs uppercase tracking-[0.18em] text-white/45">{item.label}</div>
+              </div>
+            ))}
           </div>
         </div>
 
-        <div className="relative">
-          <div className="rounded-2xl shadow-2xl overflow-hidden transform-gpu card-hover">
-            {/* Reemplazado CartoonHero por una imagen estática */}
-            <img src="/images/Hero2.png" alt="Proyecto ilustrado" className="w-full h-64 sm:h-80 md:h-96 object-cover" />
+        <div className="fade-up delay-150">
+          <div className="hero-visual card-3d">
+            <div className="hero-screen">
+              <div className="flex items-center justify-between border-b border-white/10 pb-5">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.28em] text-red-300">NYT System</p>
+                  <h2 className="mt-2 text-2xl font-black text-white">Web Experience</h2>
+                </div>
+                <div className="flex gap-2">
+                  <span className="h-3 w-3 rounded-full bg-red-500" />
+                  <span className="h-3 w-3 rounded-full bg-white/40" />
+                  <span className="h-3 w-3 rounded-full bg-white/20" />
+                </div>
+              </div>
 
-            <div className="p-5 bg-gradient-to-t from-black/40 to-transparent text-white">
-              
+              <div className="mt-7 grid gap-4">
+                {process.map((step, index) => (
+                  <div key={step} className="glass-row">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-red-600 font-black text-white">0{index + 1}</span>
+                    <span className="text-sm font-semibold text-white/80">{step}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8 rounded-3xl border border-red-400/20 bg-gradient-to-br from-red-600/25 via-white/5 to-black p-5">
+                <p className="text-sm text-white/60">Resultado esperado</p>
+                <p className="mt-2 text-3xl font-black text-white">Una marca que se ve lista para vender.</p>
+              </div>
             </div>
-          </div>
-
-          <div className="absolute -left-8 -bottom-8 bg-white rounded-xl p-4 shadow-lg glass w-60 card-hover">
-            <div className="text-xs text-slate-500">Paquete</div>
-            <div className="font-semibold">Ilustración + Web</div>
-            <div className="mt-2 text-sm text-slate-600">Perfecto para startups creativas.</div>
           </div>
         </div>
       </div>

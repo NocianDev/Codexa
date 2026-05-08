@@ -1,88 +1,90 @@
-import { useEffect, useRef, useState, type JSX } from 'react';
+import { useEffect, useState, type JSX } from 'react';
 import Nav from './components/Nav';
 import Inicio from './components/Inicio';
 import Proyectos from './components/Proyectos';
 import Servicios from './components/Servicios';
 import Contacto from './components/Contacto';
 
-function getRouteFromHash() {
-  const h = window.location.hash.replace('#', '').toLowerCase();
-  return h || 'inicio';
+const routes = ['/', '/proyectos', '/servicios', '/contacto'];
+
+function normalizePath(pathname: string) {
+  const clean = pathname.replace(/\/$/, '') || '/';
+  return routes.includes(clean) ? clean : '/404';
+}
+
+function getCurrentPath() {
+  return normalizePath(window.location.pathname);
 }
 
 export default function App(): JSX.Element {
-  const [route, setRoute] = useState(getRouteFromHash());
-  const [displayRoute, setDisplayRoute] = useState<string>(getRouteFromHash());
-  const [visible, setVisible] = useState<boolean>(true);
-  const timeoutRef = useRef<number | null>(null);
-  const ANIM_DURATION = 260;
+  const [route, setRoute] = useState(getCurrentPath());
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    function onHash() {
-      const newRoute = getRouteFromHash();
-      if (newRoute === route) return;
-
-      setRoute(newRoute);
+    const onPopState = () => {
       setVisible(false);
-
-      if (timeoutRef.current) {
-        window.clearTimeout(timeoutRef.current);
-      }
-      timeoutRef.current = window.setTimeout(() => {
-        setDisplayRoute(newRoute);
+      window.setTimeout(() => {
+        setRoute(getCurrentPath());
         setVisible(true);
-      }, ANIM_DURATION);
-    }
-
-    window.addEventListener('hashchange', onHash);
-
-    if (!window.location.hash) {
-      window.location.hash = '#inicio';
-    } else {
-      setRoute(getRouteFromHash());
-      setDisplayRoute(getRouteFromHash());
-      setVisible(true);
-    }
-
-    return () => {
-      window.removeEventListener('hashchange', onHash);
-      if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
+      }, 180);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [route]);
 
-  function renderSection(name: string) {
-    switch (name) {
-      case 'inicio': return <Inicio />;
-      case 'proyectos': return <Proyectos />;
-      case 'servicios': return <Servicios />;
-      case 'contacto': return <Contacto />;
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
+
+  function navigate(path: string) {
+    if (path === route) return;
+    setVisible(false);
+    window.setTimeout(() => {
+      window.history.pushState({}, '', path);
+      setRoute(normalizePath(path));
+      setVisible(true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 180);
+  }
+
+  function renderPage() {
+    switch (route) {
+      case '/':
+        return <Inicio navigate={navigate} />;
+      case '/proyectos':
+        return <Proyectos navigate={navigate} />;
+      case '/servicios':
+        return <Servicios />;
+      case '/contacto':
+        return <Contacto />;
       default:
         return (
-          <section className="max-w-4xl mx-auto p-6">
-            <h2 className="text-2xl font-bold mb-3">Página no encontrada</h2>
-            <p className="text-slate-600">La sección solicitada no existe. Usa la navbar para navegar.</p>
+          <section className="section-shell py-24 text-center">
+            <p className="eyebrow mx-auto">Error 404</p>
+            <h1 className="mt-5 text-4xl font-black text-white">Esta ruta no existe</h1>
+            <p className="mx-auto mt-4 max-w-xl text-white/60">
+              La página que intentaste abrir no se encontró. Puedes regresar al inicio para seguir explorando Nova Ypsilon Tech.
+            </p>
+            <button onClick={() => navigate('/')} className="btn-primary mt-8">Volver al inicio</button>
           </section>
         );
     }
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Nav current={route} />
+    <div className="min-h-screen overflow-hidden bg-nyt-dark text-white">
+      <div className="site-grid-bg" />
+      <div className="ambient ambient-one" />
+      <div className="ambient ambient-two" />
 
-      <main className="flex-1 py-8">
-        <div
-          className={`max-w-6xl mx-auto px-4 sm:px-6 transition-all duration-300 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
-          style={{ transitionDuration: `${ANIM_DURATION}ms` }}
-          key={displayRoute}
-        >
-          {renderSection(displayRoute)}
-        </div>
+      <Nav current={route} navigate={navigate} />
+
+      <main className={`relative z-10 transition-all duration-300 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
+        {renderPage()}
       </main>
 
-      <footer className="bg-white border-t py-4">
-        <div className="max-w-6xl mx-auto px-4 text-sm text-slate-500">© 2023 Nova Ypsilon Tech — Diseño ilustrado</div>
+      <footer className="relative z-10 border-t border-white/10 bg-black/50 py-8 backdrop-blur-xl">
+        <div className="section-shell flex flex-col gap-3 text-sm text-white/55 md:flex-row md:items-center md:justify-between">
+          <span>© {new Date().getFullYear()} Nova Ypsilon Tech. Tecnología, diseño y soluciones digitales.</span>
+          <span className="font-semibold text-white/75">NYT · Red / Black / White System</span>
+        </div>
       </footer>
     </div>
   );

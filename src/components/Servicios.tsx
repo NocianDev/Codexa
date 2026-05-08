@@ -1,106 +1,99 @@
-// src/components/Servicios.tsx
-// PERSONALIZA estos datos:
-const EMAIL = 'angeldevsweb@gmail.com'; // pon aquí tu correo real: 'tuemail@dominio.com'
-const WHATSAPP_NUMBER = '528261271886'; // formato internacional sin '+'. Ej: Mexico -> '5215512345678'
+const EMAIL = 'angeldevsweb@gmail.com';
+const WHATSAPP_NUMBER = '528261271886';
 
 type Service = {
-  id: string;
   title: string;
   desc: string;
+  items: string[];
   icon: string;
+  waText: string;
 };
 
-// Mensajes personalizados por servicio
-const SERVICE_MESSAGES: Record<string, { emailSubject: string; emailBody: string; waText: string }> = {
-  s1: {
-    emailSubject: 'Solicitud de información — Dudas (Codexa)',
-    emailBody:
-      `Hola Codexa,\n\nMe interesa el servicio de Dudas.\n[Tu nombre]`,
-    waText:
-      'Hola Codexa. Me interesa el servicio de Dudas',
+const services: Service[] = [
+  {
+    title: 'Diseño y desarrollo web',
+    desc: 'Sitios modernos, rápidos y responsivos para negocios que necesitan verse profesionales desde el primer clic.',
+    items: ['Landing pages', 'Sitios corporativos', 'Portafolios comerciales'],
+    icon: '◆',
+    waText: 'Hola NYT. Quiero información sobre diseño y desarrollo web.',
   },
-  s2: {
-    emailSubject: 'Solicitud de presupuesto — Desarrollo Web (Codexa)',
-    emailBody:
-      `Hola Codexa,\n\nQuisiera presupuesto para desarrollo web: sitio responsivo, integración de CMS y optimización SEO. ¿Me pueden indicar tarifas y tiempos estimados?\n\nSaludos,\n[Tu nombre]`,
-    waText:
-      'Hola Codexa. Quiero info sobre Desarrollo (sitio responsivo + CMS + SEO). ¿Me envían precios y tiempos?',
+  {
+    title: 'Automatización digital',
+    desc: 'Flujos, formularios, bases de datos e integraciones para reducir trabajo manual y capturar clientes mejor.',
+    items: ['Formularios conectados', 'Dashboards básicos', 'Integración de herramientas'],
+    icon: '●',
+    waText: 'Hola NYT. Me interesa automatizar procesos de mi negocio.',
   },
-  s3: {
-    emailSubject: 'Consulta — Soporte y Mantenimiento (Codexa)',
-    emailBody:
-      `Hola Codexa,\n\nEstoy interesado en soporte y mantenimiento continuo (actualizaciones, backups y monitoreo). ¿Podrían compartir planes, precios y SLA?\n\nGracias,\n[Tu nombre]`,
-    waText:
-      'Hola Codexa. Me interesa el servicio de Soporte (mantenimiento, backups, SLA). ¿Me comparten planes y precios?',
+  {
+    title: 'Mantenimiento y mejora',
+    desc: 'Actualización visual, corrección de errores, optimización y mejoras constantes para sitios ya publicados.',
+    items: ['Rediseños', 'SEO técnico inicial', 'Optimización responsive'],
+    icon: '▲',
+    waText: 'Hola NYT. Quiero mejorar o dar mantenimiento a mi página web.',
   },
-};
+];
+
+function whatsappHref(text: string) {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+}
+
+function mailHref(service: string) {
+  return `mailto:${EMAIL}?subject=${encodeURIComponent(`Cotización — ${service} | NYT`)}&body=${encodeURIComponent(`Hola Nova Ypsilon Tech,\n\nMe interesa el servicio de ${service}. Quisiera recibir información y una cotización.\n\nMi nombre es:`)}`;
+}
 
 export default function Servicios() {
-  const services: Service[] = [
-    { id: 's1', title: 'Dudas', desc: 'Hosting, Paquetes y dominios.', icon: '💬' },
-    { id: 's2', title: 'Desarrollo', desc: 'Web moderna, rápida y accesible.', icon: '⚙️' },
-    { id: 's3', title: 'Soporte', desc: 'Mantenimiento y crecimiento continuo.', icon: '🤝' },
-  ];
-
-  // Construye mailto con asunto y cuerpo personalizados para cada servicio
-  function mailtoHrefFor(serviceId: string) {
-    const msg = SERVICE_MESSAGES[serviceId];
-    const subject = encodeURIComponent(msg?.emailSubject ?? `Solicitud — ${serviceId}`);
-    const body = encodeURIComponent(msg?.emailBody ?? `Hola Codexa,\n\nMe interesa: ${serviceId}.\n\nGracias,\n[Tu nombre]`);
-    return `mailto:${EMAIL}?subject=${subject}&body=${body}`;
-  }
-
-  // Construye enlace WhatsApp con texto personalizado
-  function whatsappHrefFor(serviceId: string) {
-    const msg = SERVICE_MESSAGES[serviceId];
-    const text = encodeURIComponent(msg?.waText ?? `Hola Codexa. Me interesa el servicio: ${serviceId}.`);
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${text}`;
-  }
-
   return (
-    <section className="max-w-6xl mx-auto p-6">
-      <div className="mb-6">
-        <h2 className="text-3xl font-bold">Servicios</h2>
-        <p className="text-slate-600">Paquetes creativos para marcas que quieren destacar. Elige un servicio y contáctame al instante.</p>
+    <section className="section-shell py-20">
+      <div className="fade-up text-center">
+        <p className="eyebrow mx-auto">Servicios</p>
+        <h1 className="mx-auto mt-5 max-w-4xl text-4xl font-black tracking-tight text-white sm:text-6xl">
+          Soluciones digitales para que tu marca se vea más grande, más seria y más confiable.
+        </h1>
+        <p className="mx-auto mt-5 max-w-2xl text-white/62">
+          NYT combina diseño visual, estructura comercial y tecnología web para transformar una idea en una presencia digital lista para clientes reales.
+        </p>
       </div>
 
-      <div className="grid sm:grid-cols-3 gap-6">
-        {services.map((s) => (
-          <div key={s.id} className="p-6 rounded-2xl glass card-hover">
-            <div className="inline-flex items-center justify-center w-14 h-14 rounded-lg bg-gradient-to-r from-indigo-600 to-cyan-400 text-white mb-4 text-xl">{s.icon}</div>
-            <h3 className="text-xl font-semibold mb-2">{s.title}</h3>
-            <p className="text-slate-600">{s.desc}</p>
-
-            <div className="mt-4 flex gap-3">
-              {/* Email (abre cliente de correo con asunto y body personalizados) */}
-              <a
-                href={mailtoHrefFor(s.id)}
-                className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-white text-indigo-600 border border-slate-200 text-sm shadow-sm"
-                role="button"
-                aria-label={`Contactar por email sobre ${s.title}`}
-              >
-                Email
-              </a>
-
-              {/* WhatsApp (abre web/app con mensaje personalizado). Se abre en pestaña nueva para no perder la web */}
-              <a
-                href={whatsappHrefFor(s.id)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-green-500 text-white text-sm shadow-sm"
-                role="button"
-                aria-label={`Contactar por WhatsApp sobre ${s.title}`}
-              >
-                WhatsApp
-              </a>
+      <div className="mt-14 grid gap-6 lg:grid-cols-3">
+        {services.map((service, index) => (
+          <article key={service.title} className="service-card fade-up" style={{ animationDelay: `${index * 100}ms` }}>
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-red-600 text-2xl font-black text-white shadow-red-glow">
+              {service.icon}
             </div>
+            <h2 className="mt-7 text-2xl font-black text-white">{service.title}</h2>
+            <p className="mt-4 leading-7 text-white/60">{service.desc}</p>
 
-            {/* Opcional: vista previa del mensaje (pequeño) */}
-            <div className="mt-3 text-xs text-slate-400">
-              Mensaje ejemplo: <em>{SERVICE_MESSAGES[s.id].waText}</em>
+            <ul className="mt-6 space-y-3">
+              {service.items.map((item) => (
+                <li key={item} className="flex items-center gap-3 text-sm font-semibold text-white/70">
+                  <span className="h-2 w-2 rounded-full bg-red-500" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a href={whatsappHref(service.waText)} target="_blank" rel="noopener noreferrer" className="btn-card">WhatsApp</a>
+              <a href={mailHref(service.title)} className="btn-secondary px-4 py-3 text-sm">Email</a>
             </div>
-          </div>
+          </article>
         ))}
+      </div>
+
+      <div className="fade-up mt-14 rounded-[2rem] border border-red-500/20 bg-gradient-to-br from-red-600/20 via-white/[0.04] to-black p-8 md:p-10">
+        <div className="grid gap-8 md:grid-cols-[1fr_0.7fr] md:items-center">
+          <div>
+            <p className="eyebrow">Método NYT</p>
+            <h2 className="mt-4 text-3xl font-black text-white">No solo se trata de que la página exista; se trata de que parezca una marca real.</h2>
+            <p className="mt-4 text-white/60">
+              Por eso se cuida el diseño, los textos, la navegación, la velocidad, las rutas, las llamadas a la acción y la estructura para publicar en Vercel sin perder profesionalismo.
+            </p>
+          </div>
+          <div className="rounded-3xl border border-white/10 bg-black/45 p-6">
+            <div className="text-5xl font-black text-white">NYT</div>
+            <div className="mt-2 text-sm uppercase tracking-[0.28em] text-red-300">Build · Launch · Improve</div>
+          </div>
+        </div>
       </div>
     </section>
   );

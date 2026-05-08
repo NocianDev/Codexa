@@ -1,111 +1,106 @@
+type ProyectosProps = {
+  navigate: (path: string) => void;
+};
 
-import { CartoonCard } from './graphics';
+type Project = {
+  title: string;
+  category: string;
+  desc: string;
+  image: string;
+  link: string;
+  status: string;
+};
 
-export default function Proyectos() {
-  const projects = [
-    // Ejemplos: puedes reemplazar image por una ruta en /public ("/images/..")
-    // o por un import (import qImg from './assets/q.jpg' -> image: qImg)
-    { id: 1, title: 'BrightSpark', tag: 'UI/UX', colorA:'#ffd86b', colorB:'#ffb199', desc: 'Interfaz ilustrada para SaaS.', image: '/images/Bright.png', link: 'https://bright-spark-three.vercel.app/' },
-    { id: 2, title: 'QuantumGrid', tag: 'E-commerce', colorA:'#a29bfe', colorB:'#81ecec', desc: 'Tienda con estética divertida.', image: '/images/Quantum.png', link: 'https://quantum-grid-iota.vercel.app/' },
-    { id: 3, title: 'SonrisaNova', tag: 'Dentist', colorA:'#ff9ff3', colorB:'#feca57', desc: 'Trabajos porfesionales y de calidad.',image: '/images/SonrisaNova.png', link: 'https://sonrisanova.vercel.app/'}, // sin imagen -> fallback
-    { id: 4, title: 'Retama', tag: 'Renta de maquinaria', colorA:'#63e6be', colorB:'#60a5fa', desc: 'Maquinas y mas a tu disposicion', image: '/images/Trabajo1.png',link: 'https://retama-eight.vercel.app/'},
-    { id: 5, title: 'Project 2', tag: 'Marketing', colorA:'#ff8fab', colorB:'#ffd166', desc: 'Futuros Proyectos' , image: '/images/', link: ''},
-    { id: 6, title: 'Project 3', tag: 'Tests', colorA:'#b8f2e6', colorB:'#c7d2fe', desc: 'Futuros Proyectos', image: '/images/',link: '' },
-  ];
+const projects: Project[] = [
+  {
+    title: 'BrightSpark',
+    category: 'UI / Landing Page',
+    desc: 'Sitio visual para presentar una marca tecnológica con secciones claras, estética moderna y llamado a la acción directo.',
+    image: '/images/Bright.png',
+    link: 'https://bright-spark-three.vercel.app/',
+    status: 'Publicado',
+  },
+  {
+    title: 'QuantumGrid',
+    category: 'E-commerce',
+    desc: 'Experiencia digital enfocada en productos, navegación rápida y presentación atractiva para catálogo en línea.',
+    image: '/images/Quantum.png',
+    link: 'https://quantum-grid-iota.vercel.app/',
+    status: 'Publicado',
+  },
+  {
+    title: 'SonrisaNova',
+    category: 'Sitio profesional',
+    desc: 'Página para servicios dentales con comunicación confiable, diseño limpio y estructura pensada para generar citas.',
+    image: '/images/SonrisaNova.png',
+    link: 'https://sonrisanova.vercel.app/',
+    status: 'Publicado',
+  },
+  {
+    title: 'Retama Maquinaria',
+    category: 'Servicios industriales',
+    desc: 'Sitio para maquinaria con enfoque comercial, tarjetas de equipo, ubicación y presentación clara de venta/renta.',
+    image: '/images/Trabajo1.png',
+    link: 'https://retama-eight.vercel.app/',
+    status: 'Publicado',
+  },
+  {
+    title: 'Climatec',
+    category: 'Concepto corporativo',
+    desc: 'Propuesta visual para empresa técnica, ideal para mostrar servicios, confianza y capacidad operativa.',
+    image: '/images/Climatec.png',
+    link: '',
+    status: 'Concepto',
+  },
+  {
+    title: 'Intelitech',
+    category: 'Software / Tech',
+    desc: 'Concepto de presencia digital para soluciones de tecnología, automatización y sistemas empresariales.',
+    image: '/images/Intelitech.png',
+    link: '',
+    status: 'Concepto',
+  },
+];
 
-  const hasImage = (img: any) => !!img;
-
-  // normalizar src cuando se usa import (Vite/CRA pueden devolver objeto)
-  const resolveSrc = (img: any) => {
-    if (!img) return '';
-    if (typeof img === 'string') return img;
-    // módulos importados pueden venir como { default: '...'}
-    return (img as any).default ?? img;
-  };
-
+export default function Proyectos({ navigate }: ProyectosProps) {
   return (
-    <section className="max-w-6xl mx-auto p-6">
-      <div className="flex items-center justify-between mb-8">
+    <section className="section-shell py-20">
+      <div className="fade-up flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
         <div>
-          <h2 className="text-3xl font-bold">Proyectos</h2>
-          <p className="text-slate-600">Selección de trabajos con ilustraciones propias.</p>
+          <p className="eyebrow">Portafolio</p>
+          <h1 className="mt-5 text-4xl font-black tracking-tight text-white sm:text-6xl">Proyectos con estética digital real.</h1>
+          <p className="mt-5 max-w-2xl text-white/62">
+            Esta sección muestra trabajos y conceptos que pueden abrirse como proyectos independientes. La idea es que NYT se vea como un estudio serio, no como una plantilla básica.
+          </p>
         </div>
-        <a href="#proyectos" className="text-sm font-medium text-indigo-600">Ver todo</a>
+        <button onClick={() => navigate('/contacto')} className="btn-primary w-fit">Quiero algo así</button>
       </div>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {projects.map(p => (
-          <article
-            key={p.id}
-            className="relative rounded-2xl overflow-hidden shadow-lg card-hover bg-white"
-            aria-labelledby={`project-${p.id}-title`}
-          >
-            <div className="p-4">
-              <div
-                className="h-40 mb-4 rounded-lg overflow-hidden flex items-center justify-center bg-gradient-to-tr"
-                style={{ background: `linear-gradient(135deg, ${p.colorA}, ${p.colorB})` }}
-              >
-                {/* Imagen clicable si hay link; fallback CartoonCard */}
-                {hasImage(p.image) ? (
-                  p.link ? (
-                    <a
-                      href={p.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Abrir ${p.title}`}
-                      className="w-full h-full block group"
-                    >
-                      <img
-                        src={resolveSrc(p.image)}
-                        alt={p.title}
-                        loading="lazy"
-                        className="w-full h-full object-cover transform transition-transform duration-300 group-hover:scale-105"
-                      />
-                    </a>
-                  ) : (
-                    <img
-                      src={resolveSrc(p.image)}
-                      //alt={p.title}
-                      loading="lazy"
-                      className="w-full h-full object-cover"
-                    />
-                  )
-                ) : (
-                  p.link ? (
-                    <a
-                      href={p.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Abrir ${p.title}`}
-                      className="w-full h-full block"
-                    >
-                      <div className="w-11/12 h-4/5">
-                        <CartoonCard colorA={p.colorA} colorB={p.colorB} label={p.title} />
-                      </div>
-                    </a>
-                  ) : (
-                    <div className="w-11/12 h-4/5">
-                      <CartoonCard colorA={p.colorA} colorB={p.colorB} label={p.title} />
-                    </div>
-                  )
-                )}
-              </div>
+      <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        {projects.map((project, index) => (
+          <article key={project.title} className="project-card fade-up" style={{ animationDelay: `${index * 80}ms` }}>
+            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5">
+              <img src={project.image} alt={project.title} className="h-56 w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent" />
+              <span className="absolute left-4 top-4 rounded-full border border-red-300/30 bg-black/65 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-red-100 backdrop-blur-xl">
+                {project.status}
+              </span>
+            </div>
 
-              <div className="px-1">
-                <div className="text-xs text-slate-400">{p.tag}</div>
-                <h3 id={`project-${p.id}-title`} className="text-lg font-semibold">{p.title}</h3>
-                <p className="text-sm text-slate-500">{p.desc}</p>
-                <div className="mt-3">
-                  {/* Si hay link, el botón abre la URL; si no, mantiene el ancla local */}
-                  <a
-                    href={p.link ?? '#proyectos'}
-                    target={p.link ? '_blank' : undefined}
-                    rel={p.link ? 'noopener noreferrer' : undefined}
-                    className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-sm"
-                  >
-                    Ver proyecto
+            <div className="p-6">
+              <p className="text-xs font-bold uppercase tracking-[0.24em] text-red-300">{project.category}</p>
+              <h2 className="mt-3 text-2xl font-black text-white">{project.title}</h2>
+              <p className="mt-3 min-h-20 text-sm leading-6 text-white/58">{project.desc}</p>
+
+              <div className="mt-6 flex items-center justify-between gap-3">
+                {project.link ? (
+                  <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn-card">
+                    Abrir proyecto
                   </a>
-                </div>
+                ) : (
+                  <span className="rounded-full border border-white/10 px-4 py-3 text-sm font-bold text-white/45">Próximamente</span>
+                )}
+                <span className="text-2xl text-red-400">↗</span>
               </div>
             </div>
           </article>

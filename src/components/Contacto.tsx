@@ -1,12 +1,14 @@
-// src/components/Contacto.tsx
 import { useState } from 'react';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
-// Lee variables Vite (asegúrate de tenerlas en .env.local y en Vercel)
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string;
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL as string | undefined;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined;
+const EMAIL = 'angeldevsweb@gmail.com';
+const WHATSAPP_NUMBER = '528261271886';
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabase: SupabaseClient | null = SUPABASE_URL && SUPABASE_ANON_KEY
+  ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+  : null;
 
 export default function Contacto() {
   const [name, setName] = useState('');
@@ -16,18 +18,24 @@ export default function Contacto() {
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorText, setErrorText] = useState<string | null>(null);
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setErrorText(null);
 
-    // Validaciones básicas
     if (!name.trim() || !email.trim() || !message.trim()) {
-      setErrorText('Por favor completa todos los campos.');
+      setErrorText('Completa todos los campos para poder enviar tu solicitud.');
       return;
     }
-    // email simple
+
     if (!/^\S+@\S+\.\S+$/.test(email)) {
       setErrorText('Introduce un correo válido.');
+      return;
+    }
+
+    if (!supabase) {
+      const subject = encodeURIComponent('Solicitud de proyecto — Nova Ypsilon Tech');
+      const body = encodeURIComponent(`Nombre: ${name}\nCorreo: ${email}\n\nMensaje:\n${message}`);
+      window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
       return;
     }
 
@@ -40,8 +48,7 @@ export default function Contacto() {
         .insert([{ name: name.trim(), email: email.trim(), message: message.trim() }]);
 
       if (error) {
-        console.error('Supabase insert error:', error);
-        setErrorText('Error al enviar. Intenta de nuevo más tarde.');
+        setErrorText('No se pudo guardar el mensaje. Intenta por WhatsApp o correo.');
         setStatus('error');
       } else {
         setStatus('success');
@@ -49,9 +56,8 @@ export default function Contacto() {
         setEmail('');
         setMessage('');
       }
-    } catch (err) {
-      console.error('Unexpected error:', err);
-      setErrorText('Error inesperado. Revisa la consola.');
+    } catch {
+      setErrorText('Ocurrió un error inesperado. Intenta por WhatsApp o correo.');
       setStatus('error');
     } finally {
       setLoading(false);
@@ -59,99 +65,67 @@ export default function Contacto() {
   }
 
   return (
-    <section className="max-w-6xl mx-auto p-6 grid lg:grid-cols-2 gap-8 items-start">
-      <div className="p-6 rounded-2xl bg-gradient-to-tr from-indigo-600 to-pink-500 text-white shadow-lg">
-        <h2 className="text-3xl font-bold mb-2">Hablemos de tu proyecto</h2>
-        <p className="mb-6 text-white/90">Cuéntame tu idea y te responderé con una propuesta ilustrada y presupuesto estimado.</p>
+    <section className="section-shell grid gap-10 py-20 lg:grid-cols-[0.85fr_1fr] lg:items-start">
+      <div className="fade-up rounded-[2rem] border border-red-500/20 bg-gradient-to-br from-red-700/35 via-black to-white/[0.04] p-8 shadow-red-glow md:p-10">
+        <p className="eyebrow">Contacto</p>
+        <h1 className="mt-5 text-4xl font-black leading-tight text-white sm:text-5xl">Hablemos de tu página, sistema o rediseño.</h1>
+        <p className="mt-5 leading-8 text-white/64">
+          Cuéntanos qué necesitas y te respondemos con una propuesta clara. Podemos ayudarte a lanzar una página nueva, modernizar una existente o darle una presencia más profesional a tu empresa.
+        </p>
 
-        <div className="mt-4 space-y-3">
-          <div className="bg-white/10 p-3 rounded">
-            <div className="text-xs text-white/90">Tiempo estimado de respuesta</div>
-            <div className="font-semibold">24 - 48 horas</div>
+        <div className="mt-8 grid gap-4">
+          <div className="contact-info-card">
+            <span>Tiempo de respuesta</span>
+            <strong>24 a 48 horas</strong>
           </div>
-          <div className="bg-white/10 p-3 rounded">
-            <div className="text-xs text-white/90">Precio base</div>
-            <div className="font-semibold">$900</div>
+          <div className="contact-info-card">
+            <span>Canales</span>
+            <strong>WhatsApp · Email · Formulario</strong>
+          </div>
+          <div className="contact-info-card">
+            <span>Especialidad</span>
+            <strong>Web moderna, rutas reales y diseño premium</strong>
           </div>
         </div>
 
-        <div className="mt-6 text-sm">
-          <div>También disponible via:</div>
-          <div className="mt-3 flex gap-3">
-            <a className="px-3 py-2 rounded bg-white/20">WhatsApp</a>
-            <a className="px-3 py-2 rounded bg-white/20">Email</a>
-          </div>
-        </div>
+        <a
+          href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('Hola NYT. Quiero cotizar un proyecto web.')}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-primary mt-8 inline-flex"
+        >
+          Escribir por WhatsApp
+        </a>
       </div>
 
-      <div className="bg-white rounded-2xl p-6 shadow-lg">
-        <form className="space-y-4" onSubmit={handleSubmit}>
-          <label className="block">
-            <span className="text-sm font-medium text-slate-700">Nombre</span>
-            <input
-              className="mt-1 block w-full border p-3 rounded"
-              placeholder="Tu nombre"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
+      <form onSubmit={handleSubmit} className="fade-up delay-150 rounded-[2rem] border border-white/10 bg-white/[0.06] p-6 shadow-2xl backdrop-blur-xl md:p-8">
+        <div className="grid gap-5">
+          <label className="form-field">
+            <span>Nombre</span>
+            <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Tu nombre" />
           </label>
 
-          <label className="block">
-            <span className="text-sm font-medium text-slate-700">Correo</span>
-            <input
-              className="mt-1 block w-full border p-3 rounded"
-              placeholder="correo@ejemplo.com"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+          <label className="form-field">
+            <span>Correo</span>
+            <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="correo@ejemplo.com" type="email" />
           </label>
 
-          <label className="block">
-            <span className="text-sm font-medium text-slate-700">Mensaje</span>
-            <textarea
-              className="mt-1 block w-full border p-3 rounded"
-              rows={5}
-              placeholder="Cuéntame sobre tu idea..."
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              required
-            />
+          <label className="form-field">
+            <span>Mensaje</span>
+            <textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Cuéntanos qué tipo de sitio o solución necesitas..." rows={7} />
           </label>
-
-          <div className="flex items-center justify-between">
-            <button
-              type="submit"
-              disabled={loading}
-              className={`px-5 py-3 rounded-full bg-gradient-to-r from-indigo-600 to-pink-500 text-white font-semibold shadow-md transform transition ${
-                loading ? 'opacity-60 cursor-wait' : 'hover:-translate-y-0.5'
-              }`}
-            >
-              {loading ? 'Enviando...' : 'Enviar mensaje'}
-            </button>
-
-            <div className="text-sm text-slate-500">O escribe a <strong>hola@codexa.com</strong></div>
-          </div>
-
-          {/* Feedback */}
-          {status === 'success' && (
-            <div className="mt-3 p-3 rounded bg-green-50 text-green-800">¡Mensaje enviado! Te responderé pronto.</div>
-          )}
-          {status === 'error' && errorText && (
-            <div className="mt-3 p-3 rounded bg-rose-50 text-rose-800">{errorText}</div>
-          )}
-          {status === 'idle' && errorText && (
-            <div className="mt-3 p-3 rounded bg-rose-50 text-rose-800">{errorText}</div>
-          )}
-        </form>
-
-        <div className="mt-6">
-          {/* simple cartoon svg illustration kept from design */}
-          
         </div>
-      </div>
+
+        <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <button type="submit" disabled={loading} className="btn-primary disabled:cursor-wait disabled:opacity-60">
+            {loading ? 'Enviando...' : 'Enviar solicitud'}
+          </button>
+          <p className="text-sm text-white/45">También puedes escribir a <strong className="text-white/75">{EMAIL}</strong></p>
+        </div>
+
+        {status === 'success' && <div className="feedback-success">Mensaje enviado correctamente. Te responderemos pronto.</div>}
+        {(status === 'error' || errorText) && errorText && <div className="feedback-error">{errorText}</div>}
+      </form>
     </section>
   );
 }
